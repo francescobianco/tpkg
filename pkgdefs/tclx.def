@@ -7,7 +7,7 @@ pkg_version="8.4.4"
 pkg_url="https://github.com/flightaware/tclx/archive/refs/tags/v${pkg_version}.tar.gz"
 pkg_checksum="sha256:44d834d0996e9a7bbaf22d85d9dc17eac2ccc43ab0243a21087e3944c7bc3825"
 
-. "$tpkg_libdir/tpkgdef_std_conf_make.sh"
+#. "$tpkg_libdir/tpkgdef_std_conf_make.sh"
 
 function pkg_pre_make() {
 	msg_debug "Applying panic patch..."

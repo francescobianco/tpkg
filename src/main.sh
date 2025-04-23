@@ -1,4 +1,3 @@
-#!/bin/bash
 ##
 ## TPKG - The Tcl Package Manager
 ##
@@ -16,6 +15,10 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+
+module common
+module pkgdef_defauts
+module tpkgdef_std_conf_make
 
 tpkg_version=0.1dev2
 tpkg_base="${TPKG_BASE:-/opt/tpkg}"
@@ -50,10 +53,10 @@ function error_renistall() {
 	exit 1
 }
 
-if [[ ! -d "$tpkg_libdir" ]]; then
-	echo "$0: ERROR: lib dir not found: $tpkg_libdir"
-	error_renistall
-fi
+#if [[ ! -d "$tpkg_libdir" ]]; then
+#	echo "$0: ERROR: lib dir not found: $tpkg_libdir"
+#	error_renistall
+#fi
 
 if [[ ! -d "$tpkg_pkgdefs" ]]; then
 	echo "$0: ERROR: pkgdefs not found: $tpkg_pkgdefs"
@@ -66,7 +69,7 @@ if [[ -f "$tpkg_tclconfig" ]]; then
 	. "$tpkg_tclconfig"
 	TCLSH="${TCL_EXEC_PREFIX:-$tpkg_base}/bin/tclsh"
 fi
-. "$tpkg_libdir/common.sh"
+#. "$tpkg_libdir/common.sh"
 
 ##
 
@@ -154,7 +157,7 @@ function pkg_exists() {
 }
 
 function read_pkg_info() {
-	. "$tpkg_libdir/pkgdef_defauts.sh"
+	#. "$tpkg_libdir/pkgdef_defauts.sh"
 	. "$tpkg_pkgdefs/$1.def"
 	if [[ -z "$pkg_archive_filename" ]]; then
 		pkg_archive_filename="${pkg_name}-${pkg_version}.$pkg_archive_extension"
@@ -242,7 +245,7 @@ function do_extract() {
 		msg_error "$pkg_archive: not found. try '$0 download $pkg_name' first"
 		return 1
 	fi
-	
+
 	if [[ ! -d "$pkg_builddir" ]]; then
 		mkdir -p "$pkg_builddir"
 	fi
@@ -323,7 +326,7 @@ function do_reset_all() {
 		msg "$dir"
 	done
 	msg "$tpkg_base/{bin,include,lib,man,share}"
-	
+
 	if readinput_yesno -d n "DELETE THEM ALL?"; then
 		call rm -rf -- "${dirlist[@]}" "$tpkg_base"/{bin,include,lib,man,share}
 	fi
@@ -424,7 +427,7 @@ function do_list() {
 
 ##
 
-
+main () {
 banner
 parse_options "$@"; shift $((OPTIND-1))
 
@@ -446,4 +449,4 @@ else
 	print_usage
 	echo -e "\nBye."
 fi
-
+}
